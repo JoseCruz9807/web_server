@@ -3,7 +3,7 @@ const path = require('path')
 const app = express()
 const publicDir = path.join(__dirname,'public')
 const omdb = require('./omdb.js')
-
+const port = process.env.PORT || 3000
 
 app.use(express.static(publicDir))
 
@@ -99,7 +99,7 @@ app.get('*', function(req, res){
     })
 })
 
-app.listen(3000, function(){
+app.listen(port, function(){
     console.log('up and running')
 })
 //npm install -g nodemon 

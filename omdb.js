@@ -1,12 +1,17 @@
-
-const credentials = require('./credentials.js')
 const request = require('request')
 
 //const url = 'http://www.omdbapi.com/?i=tt3896198&apikey=62aa9a3b'
 
+if(process.env.NODE_ENV==='production'){
+    var APIKEY = process.env.APIKEY
+}{
+    const credentials = require('./credentials.js')
+    var APIKEY = credentials.apikey
+}
+
 
 const omdbMovie = function (title, callback){
-    const url = 'http://www.omdbapi.com/?t='+title+'&apikey='+ credentials.apikey
+    const url = 'http://www.omdbapi.com/?t='+title+'&apikey='+ APIKEY
 
     request({url: url, json: true}, function(error, response){  //request({url: url, json: true}, function(error, {body}){
         //console.log(response.body)
@@ -35,7 +40,7 @@ const omdbMovie = function (title, callback){
 }
 
 const omdbSeason= function (title, seasonNo, callback){
-    const url = 'http://www.omdbapi.com/?t='+title+'&Season='+seasonNo+'&apikey='+ credentials.apikey
+    const url = 'http://www.omdbapi.com/?t='+title+'&Season='+seasonNo+'&apikey='+ APIKEY
     request({url: url, json: true}, function(error, response){
         //console.log(response.body)
         if(error){
